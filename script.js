@@ -33,7 +33,7 @@ const analizarSituacion = (notaFinal) => {
         console.log(`${nombre} repite con una nota de ${notaFinal}.`);
     }
 }
-const Estudiantes = () => { 
+const estudiantes = () => { 
     do {
         otroEstudiante = parseInt(prompt("¿Deseas ingresar otro estudiante? (1 para sí, 0 para no):"));
         if (otroEstudiante !== 0 && otroEstudiante !== 1) {
@@ -50,7 +50,7 @@ const programa = () => {
         recopilarNotas();
         notaFinal = promediarNotas(nota1, nota2);
         analizarSituacion(notaFinal);
-        otroEstudiante = Estudiantes();
+        otroEstudiante = estudiantes();
     }
     console.log(`Gracias por usar el sistema de evaluación.`);
 }
