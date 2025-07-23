@@ -3,6 +3,8 @@ let nombre;
 let nota1;
 let nota2;
 let notaFinal;
+let promedios = [];
+
 const bienvenida = () => {
     console.log("Bienvenido al sistema de evaluación de estudiantes.");
     console.log("Por favor, sigue las instrucciones para ingresar las notas de los estudiantes.");
@@ -50,8 +52,10 @@ const programa = () => {
         recopilarNotas();
         notaFinal = promediarNotas(nota1, nota2);
         analizarSituacion(notaFinal);
+        promedios.push(notaFinal);
         otroEstudiante = estudiantes();
     }
+    console.log(`Los promedios de los estudiantes son: ${promedios}`);
     console.log(`Gracias por usar el sistema de evaluación.`);
 }
 
