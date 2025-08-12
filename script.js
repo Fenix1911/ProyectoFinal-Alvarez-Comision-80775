@@ -38,8 +38,18 @@ const agregarAlumno = () => {
 };
 
 //renderizar los alumnos en la pantalla
-const renderizarAlumnos = () =>
-  console.log("Bienvenido al sistema de evaluación de estudiantes.");
+const renderizarAlumnos = () => {
+  document.getElementById("alumnosContainer").innerHTML = (
+    <div>
+      <p>Nombre: </p>
+      <p>Apellido: </p>
+      <p>Nota 1: </p>
+      <p>Nota 2: </p>
+      <p>Promedio: </p>
+    </div>
+  );
+};
+console.log("Bienvenido al sistema de evaluación de estudiantes.");
 
 /*const bienvenida = () => {
   console.log("Bienvenido al sistema de evaluación de estudiantes.");
