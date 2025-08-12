@@ -1,26 +1,30 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet"
+    />
     <title>Simulador de promedios</title>
-</head>
-<body>
-    <h1>Simulador de promedios</h1>
-    <p>
-        Bienvenido al simulador de promedios. 
-        Este programa busca facilitar las tareas de profesores a calcular
-        los promedios de sus estudiantes a partir de las notas que 
-        se han sacado en los parciales y verificar su situacion.
-        Aimismo, al final del programa podras ver los promedios de 
-        todos los estudiantes ingresados.
-    </p>
-
-    <p>
-        El objetivo es facilitar la gestión académica, 
-        optimizar el tiempo y asegurar una evaluación justa y transparente. 
-    </p>
-
+  </head>
+  <body>
+    <h1 id="tituloPrincipal">Simulador de promedios</h1>
+    <div class="contenedorTomaDatos">
+      <label for="nombreAlumno">Ingrese el nombre del Alumno.</label>
+      <input type="text" id="nombreAlumno" name="nombreAlumno" />
+      <label for="apellidoAlumno">Ingrese el apellido del Alumno.</label>
+      <input type="text" id="apellidoAlumno" name="apellidoAlumno" />
+      <label for="nota1">Ingrese la primera nota del Alumno.</label>
+      <input type="text" id="nota1" name="nota1" />
+      <label for="nota2">Ingrese la segunda nota del Alumno.</label>
+      <input type="text" id="nota2" name="nota2" />
+      <button onclick="agregarAlumno()">Añadir Alumno</button>
+    </div>
     <script src="script.js"></script>
-</body>
+  </body>
 </html>
