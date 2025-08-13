@@ -10,6 +10,11 @@ const promediarNotas = (a, b) => (a + b) / 2;
 //Array con alumnos
 let alumnos = [];
 
+const borrarDatos = () => {
+  borrarDelLocalStorage();
+  limpiarContenedorAlumnos();
+};
+
 //Guardar los datos en el local storage
 const guardarEnLocalStorage = () => {
   localStorage.setItem("alumnos", JSON.stringify(alumnos));
@@ -116,9 +121,4 @@ const renderizarAlumnos = () => {
         }</p>
       </div>`;
   });
-};
-
-const borrarDatos = () => {
-  borrarDelLocalStorage();
-  limpiarContenedorAlumnos();
 };
