@@ -1,10 +1,7 @@
-let otroEstudiante = 1;
 let nombreAlumno;
 let apellidoAlumno;
 let nota1;
 let nota2;
-let notaFinal;
-//let promedios = [];
 let alumno;
 
 //Funcion para promediar dos notas
@@ -14,6 +11,29 @@ const promediarNotas = (a, b) => (a + b) / 2;
 let alumnos = [];
 
 // recolectar los datos de los estudiantes
+const limpiarInputs = () => {
+  document.getElementById("nombreAlumno").value = "";
+  document.getElementById("apellidoAlumno").value = "";
+  document.getElementById("nota1").value = "";
+  document.getElementById("nota2").value = "";
+};
+
+//validar los datos ingresados por el usuario
+const validarDatos = () => {
+  if (
+    nombreAlumno.trim() === "" ||
+    apellidoAlumno.trim() === "" ||
+    isNaN(nota1) ||
+    isNaN(nota2) ||
+    nota1 < 0 ||
+    nota1 > 10 ||
+    nota2 < 0 ||
+    nota2 > 10
+  ) {
+    alert("Por favor, complete todos los campos correctamente.");
+    return false;
+  } else return true;
+};
 
 const recolectarDatos = () => {
   inputNombreAlumno = document.getElementById("nombreAlumno");
@@ -24,16 +44,12 @@ const recolectarDatos = () => {
   apellidoAlumno = inputApellidoAlumno.value;
   nota1 = parseFloat(inputNota1.value);
   nota2 = parseFloat(inputNota2.value);
-  return {
-    nombre: nombreAlumno,
-    apellido: apellidoAlumno,
-    nota1: nota1,
-    nota2: nota2,
-  };
 };
 
 //Funcion para agregar un alumno al array
+
 const agregarAlumno = () => {
+  recolectarDatos();
   alumno = {
     id: alumnos.length + 1,
     nombre: nombreAlumno,
@@ -41,17 +57,26 @@ const agregarAlumno = () => {
     nota1: nota1,
     nota2: nota2,
   };
-  alumnos.push(alumno);
-  console.log(`Alumno agregado: ${alumno.nombre} ${alumno.apellido}`);
+
+  if (validarDatos()) {
+    alumnos.push(alumno);
+  }
+
+  limpiarInputs();
+  limpiarContenedorAlumnos();
 };
 
 //renderizar los alumnos en la pantalla
 
-contenedorAlumnos = document.getElementById("contenedorAlumnos");
+contenedorAlumnos = document.getElementById("alumnosContainer");
+
+const limpiarContenedorAlumnos = () => {
+  contenedorAlumnos.innerHTML = "";
+};
 
 const renderizarAlumnos = () => {
   alumnos.forEach((alumno) => {
-    contenedorAlumnos.innerHTML = `
+    contenedorAlumnos.innerHTML += `
       <div class="alumno" id="alumno-${alumno.id}">
         <h3>Alumno: ${alumno.nombre} ${alumno.apellido}</h3> 
         <p> Nota 1: ${alumno.nota1} </p> 
@@ -68,14 +93,7 @@ const renderizarAlumnos = () => {
   });
 };
 
-console.log("Bienvenido al sistema de evaluación de estudiantes.");
-
-/*const bienvenida = () => {
-  console.log("Bienvenido al sistema de evaluación de estudiantes.");
-  console.log(
-    "Por favor, sigue las instrucciones para ingresar las notas de los estudiantes."
-  );
-};
+/*
 
 const recopilarNotas = () => {
   do {
@@ -97,40 +115,5 @@ const recopilarNotas = () => {
   } while (isNaN(nota2) || nota2 < 0 || nota2 > 10);
   return [nota1, nota2];
 };
-const analizarSituacion = (notaFinal) => {
-  if (notaFinal >= 7) {
-    console.log(`${nombre} promociona con una nota de ${notaFinal}.`);
-  } else if (notaFinal >= 4) {
-    console.log(`${nombre} va a final con una nota de ${notaFinal}.`);
-  } else {
-    console.log(`${nombre} repite con una nota de ${notaFinal}.`);
-  }
-};
-const estudiantes = () => {
-  do {
-    otroEstudiante = parseInt(
-      prompt("¿Deseas ingresar otro estudiante? (1 para sí, 0 para no):")
-    );
-    if (otroEstudiante !== 0 && otroEstudiante !== 1) {
-      alert(
-        "Por favor, introduce un número válido para la instruccion solicitada."
-      );
-    }
-  } while (otroEstudiante !== 0 && otroEstudiante !== 1);
-  return otroEstudiante;
-};
-const programa = () => {
-  bienvenida();
-  while (otroEstudiante === 1) {
-    nombre = prompt("Introduce el nombre del alumno:");
-    recopilarNotas();
-    notaFinal = promediarNotas(nota1, nota2);
-    analizarSituacion(notaFinal);
-    promedios.push(notaFinal);
-    otroEstudiante = estudiantes();
-  }
-  console.log(`Los promedios de los estudiantes son: ${promedios}`);
-  console.log(`Gracias por usar el sistema de evaluación.`);
-};
 
-programa(); */
+ */

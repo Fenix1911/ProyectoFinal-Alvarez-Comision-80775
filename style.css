@@ -58,3 +58,28 @@ button {
 button:hover {
   background-color: #0056b3;
 }
+
+.alumnosContainer {
+  background-color: #ffffff;
+  width: 700px;
+  margin: 20px auto;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.alumno {
+  background-color: #f8f9fa;
+  padding: 15px;
+  margin-bottom: 10px;
+  border-radius: 4px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.subtitulo {
+  text-align: center;
+  color: #ffffff;
+  font-size: 1.8em;
+  margin-top: 10px;
+  text-transform: uppercase;
+}

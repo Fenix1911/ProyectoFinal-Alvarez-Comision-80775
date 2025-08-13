@@ -16,18 +16,29 @@
     <h1 id="tituloPrincipal">Simulador de promedios</h1>
     <div class="contenedorTomaDatos">
       <label for="nombreAlumno">Ingrese el nombre del Alumno.</label>
-      <input type="text" id="nombreAlumno" name="nombreAlumno" />
+      <input
+        type="text"
+        id="nombreAlumno"
+        name="nombreAlumno"
+        placeholder="Pepe"
+      />
       <label for="apellidoAlumno">Ingrese el apellido del Alumno.</label>
-      <input type="text" id="apellidoAlumno" name="apellidoAlumno" />
+      <input
+        type="text"
+        id="apellidoAlumno"
+        name="apellidoAlumno"
+        placeholder="Gomez"
+      />
       <label for="nota1">Ingrese la primera nota del Alumno.</label>
-      <input type="text" id="nota1" name="nota1" />
+      <input type="text" id="nota1" name="nota1" placeholder="10" />
       <label for="nota2">Ingrese la segunda nota del Alumno.</label>
-      <input type="text" id="nota2" name="nota2" />
+      <input type="text" id="nota2" name="nota2" placeholder="8" />
       <button onclick="agregarAlumno()">Añadir Alumno</button>
+      <button onclick="renderizarAlumnos()">Mostrar Alumnos</button>
     </div>
 
     <div>
-      <h2>Alumnos ingresados:</h2>
+      <h2 class="subtitulo">Alumnos ingresados:</h2>
       <div id="alumnosContainer">
         <!-- Los alumnos se renderizarán aquí -->
       </div>
