@@ -1,11 +1,14 @@
 let otroEstudiante = 1;
 let nombreAlumno;
 let apellidoAlumno;
-let nota1 = undefined;
+let nota1;
 let nota2;
 let notaFinal;
-let promedios = [];
+//let promedios = [];
 let alumno;
+
+//Funcion para promediar dos notas
+const promediarNotas = (a, b) => (a + b) / 2;
 
 //Array con alumnos
 let alumnos = [];
@@ -21,11 +24,16 @@ const recolectarDatos = () => {
   apellidoAlumno = inputApellidoAlumno.value;
   nota1 = parseFloat(inputNota1.value);
   nota2 = parseFloat(inputNota2.value);
+  return {
+    nombre: nombreAlumno,
+    apellido: apellidoAlumno,
+    nota1: nota1,
+    nota2: nota2,
+  };
 };
 
 //Funcion para agregar un alumno al array
 const agregarAlumno = () => {
-  recolectarDatos();
   alumno = {
     id: alumnos.length + 1,
     nombre: nombreAlumno,
@@ -38,17 +46,28 @@ const agregarAlumno = () => {
 };
 
 //renderizar los alumnos en la pantalla
+
+contenedorAlumnos = document.getElementById("contenedorAlumnos");
+
 const renderizarAlumnos = () => {
-  document.getElementById("alumnosContainer").innerHTML = (
-    <div>
-      <p>Nombre: </p>
-      <p>Apellido: </p>
-      <p>Nota 1: </p>
-      <p>Nota 2: </p>
-      <p>Promedio: </p>
-    </div>
-  );
+  alumnos.forEach((alumno) => {
+    contenedorAlumnos.innerHTML = `
+      <div class="alumno" id="alumno-${alumno.id}">
+        <h3>Alumno: ${alumno.nombre} ${alumno.apellido}</h3> 
+        <p> Nota 1: ${alumno.nota1} </p> 
+        <p> Nota 2: ${alumno.nota2} </p>
+        <p> Promedio: ${promediarNotas(alumno.nota1, alumno.nota2)}</p>
+        <p> Situación: ${
+          promediarNotas(alumno.nota1, alumno.nota2) >= 7
+            ? "Promociona"
+            : promediarNotas(alumno.nota1, alumno.nota2) >= 4
+            ? "Va a final"
+            : "Repite"
+        }</p>
+      </div>`;
+  });
 };
+
 console.log("Bienvenido al sistema de evaluación de estudiantes.");
 
 /*const bienvenida = () => {
@@ -57,7 +76,7 @@ console.log("Bienvenido al sistema de evaluación de estudiantes.");
     "Por favor, sigue las instrucciones para ingresar las notas de los estudiantes."
   );
 };
-const promediarNotas = (a, b) => (a + b) / 2;
+
 const recopilarNotas = () => {
   do {
     nota1 = parseFloat(prompt("Introduce la nota del primer parcial:"));
