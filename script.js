@@ -10,6 +10,31 @@ const promediarNotas = (a, b) => (a + b) / 2;
 //Array con alumnos
 let alumnos = [];
 
+//Guardar los datos en el local storage
+const guardarEnLocalStorage = () => {
+  localStorage.setItem("alumnos", JSON.stringify(alumnos));
+};
+
+//Recuperar los datos del local storage
+const recuperarDelLocalStorage = () => {
+  const datos = localStorage.getItem("alumnos");
+  if (datos) {
+    alumnos = JSON.parse(datos);
+  }
+};
+//borrar los datos del local storage
+const borrarDelLocalStorage = () => {
+  localStorage.removeItem("alumnos");
+  alumnos = [];
+  limpiarContenedorAlumnos();
+};
+
+//Recuperar los datos al cargar la pagina
+window.onload = recuperarDelLocalStorage();
+
+//Guardar los datos al cerrar la pagina
+window.onbeforeunload = guardarEnLocalStorage();
+
 // recolectar los datos de los estudiantes
 const limpiarInputs = () => {
   document.getElementById("nombreAlumno").value = "";
@@ -61,7 +86,7 @@ const agregarAlumno = () => {
   if (validarDatos()) {
     alumnos.push(alumno);
   }
-
+  guardarEnLocalStorage();
   limpiarInputs();
   limpiarContenedorAlumnos();
 };
@@ -93,27 +118,7 @@ const renderizarAlumnos = () => {
   });
 };
 
-/*
-
-const recopilarNotas = () => {
-  do {
-    nota1 = parseFloat(prompt("Introduce la nota del primer parcial:"));
-    if (isNaN(nota1) || nota1 < 0 || nota1 > 10) {
-      alert(
-        "Por favor, introduce un número válido para la nota del primer parcial."
-      );
-    }
-  } while (isNaN(nota1) || nota1 < 0 || nota1 > 10);
-
-  do {
-    nota2 = parseFloat(prompt("Introduce la nota del segundo parcial:"));
-    if (isNaN(nota2) || nota2 < 0 || nota2 > 10) {
-      alert(
-        "Por favor, introduce un número válido para la nota del segundo parcial."
-      );
-    }
-  } while (isNaN(nota2) || nota2 < 0 || nota2 > 10);
-  return [nota1, nota2];
+const borrarDatos = () => {
+  borrarDelLocalStorage();
+  limpiarContenedorAlumnos();
 };
-
- */
