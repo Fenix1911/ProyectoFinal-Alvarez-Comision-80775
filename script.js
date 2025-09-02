@@ -15,9 +15,31 @@ const borrarDatos = () => {
   limpiarContenedorAlumnos();
 };
 
+const validarBorrado = async () => {
+  const result = await Swal.fire({
+    title: "¿Está seguro que desea borrar todos los datos?",
+    text: "Esta acción no se puede deshacer.",
+    icon: "question",
+    showCancelButton: true,
+    confirmButtonText: "Sí, borrar todo.",
+    cancelButtonText: "No, cancelar.",
+  });
+  return result.isConfirmed;
+};
+
 const btnBorrarDatos = document.getElementById("BtnBorrarDatos");
-btnBorrarDatos.onclick = () => {
-  borrarDatos();
+btnBorrarDatos.onclick = async function () {
+  const confirmado = await validarBorrado();
+  if (confirmado) {
+    borrarDatos();
+  } else {
+    await Swal.fire({
+      title: "Acción cancelada.",
+      text: "Los datos no fueron borrados.",
+      icon: "info",
+      confirmButtonText: "Continuar.",
+    });
+  }
 };
 
 //Guardar los datos en el local storage
@@ -33,6 +55,7 @@ const recuperarDelLocalStorage = () => {
   }
 };
 //borrar los datos del local storage
+
 const borrarDelLocalStorage = () => {
   localStorage.removeItem("alumnos");
   alumnos = [];
@@ -67,7 +90,12 @@ const validarDatos = () => {
     !esNotaValida(nota1) ||
     !esNotaValida(nota2)
   ) {
-    alert("Por favor, complete todos los campos correctamente.");
+    Swal.fire({
+      title: "Los datos ingresados no son validos.",
+      text: "Por favor, ingrese los datos correctamente.",
+      icon: "error",
+      confirmButtonText: "Continuar.",
+    });
     return false;
   } else return true;
 };
@@ -144,6 +172,15 @@ const renderizarAlumnos = () => {
 
 const btnRenderizarAlumnos = document.getElementById("BtnRenderizarAlumnos");
 btnRenderizarAlumnos.onclick = () => {
+  if (alumnos.length === 0) {
+    Swal.fire({
+      title: "No hay alumnos para mostrar.",
+      text: "Por favor, ingrese al menos un alumno.",
+      icon: "warning",
+      confirmButtonText: "Continuar.",
+    });
+    return;
+  }
   renderizarAlumnos();
 };
 
@@ -189,9 +226,4 @@ addEventListener("DOMContentLoaded", async () => {
   renderizarAlumnosProfesores();
 });
 
-/*Swal.fire({
-  title: "Error!",
-  text: "Do you want to continue",
-  icon: "error",
-  confirmButtonText: "Cool",
-}); */
+/**/
