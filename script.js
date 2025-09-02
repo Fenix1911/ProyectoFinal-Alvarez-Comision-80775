@@ -193,7 +193,7 @@ let alumnosProfesores = [];
 
 // fetch para traer alumnos de otros profesores
 const GetAlumnosProfesores = async () => {
-  const response = await fetch("alumnos.json");
+  const response = await fetch("./alumnos.json");
   const res = await response.json();
   alumnosProfesores = res;
 };
