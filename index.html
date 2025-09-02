@@ -10,6 +10,7 @@
       href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
       rel="stylesheet"
     />
+    <link rel="stylesheet" href="sweetalert2.min.css" />
     <title>Simulador de promedios</title>
   </head>
   <body>
@@ -33,9 +34,9 @@
       <input type="text" id="nota1" name="nota1" placeholder="10..." />
       <label for="nota2">Ingrese la segunda nota del Alumno.</label>
       <input type="text" id="nota2" name="nota2" placeholder="8..." />
-      <button onclick="agregarAlumno()">Añadir Alumno</button>
-      <button onclick="renderizarAlumnos()">Mostrar Alumnos</button>
-      <button onclick="borrarDatos()">Borrar Alumnos</button>
+      <button id="BtnAgregarAlumno">Añadir Alumno</button>
+      <button id="BtnRenderizarAlumnos">Mostrar Alumnos</button>
+      <button id="BtnBorrarDatos">Borrar Alumnos</button>
     </div>
 
     <div>
@@ -43,6 +44,12 @@
       <div id="alumnosContainer"></div>
     </div>
 
+    <div>
+      <h2 class="subtitulo">Alumnos ingresados por otros profesores:</h2>
+      <div id="alumnosContainerProfesores"></div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="script.js"></script>
   </body>
 </html>

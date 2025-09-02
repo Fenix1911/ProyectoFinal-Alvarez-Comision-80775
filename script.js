@@ -15,6 +15,11 @@ const borrarDatos = () => {
   limpiarContenedorAlumnos();
 };
 
+const btnBorrarDatos = document.getElementById("BtnBorrarDatos");
+btnBorrarDatos.onclick = () => {
+  borrarDatos();
+};
+
 //Guardar los datos en el local storage
 const guardarEnLocalStorage = () => {
   localStorage.setItem("alumnos", JSON.stringify(alumnos));
@@ -48,17 +53,19 @@ const limpiarInputs = () => {
   document.getElementById("nota2").value = "";
 };
 
+// funcion auxiliar de validacion de datos
+const esNombreValido = (nombre) => nombre.trim() !== "" && !/\d/.test(nombre);
+const esApellidoValido = (apellido) =>
+  apellido.trim() !== "" && !/\d/.test(apellido);
+const esNotaValida = (nota) => !isNaN(nota) && nota >= 0 && nota <= 10;
+
 //validar los datos ingresados por el usuario
 const validarDatos = () => {
   if (
-    nombreAlumno.trim() === "" ||
-    apellidoAlumno.trim() === "" ||
-    isNaN(nota1) ||
-    isNaN(nota2) ||
-    nota1 < 0 ||
-    nota1 > 10 ||
-    nota2 < 0 ||
-    nota2 > 10
+    !esNombreValido(nombreAlumno) ||
+    !esApellidoValido(apellidoAlumno) ||
+    !esNotaValida(nota1) ||
+    !esNotaValida(nota2)
   ) {
     alert("Por favor, complete todos los campos correctamente.");
     return false;
@@ -96,6 +103,11 @@ const agregarAlumno = () => {
   limpiarContenedorAlumnos();
 };
 
+btnAgregarAlumno = document.getElementById("BtnAgregarAlumno");
+btnAgregarAlumno.onclick = () => {
+  agregarAlumno();
+};
+
 //renderizar los alumnos en la pantalla
 
 contenedorAlumnos = document.getElementById("alumnosContainer");
@@ -119,6 +131,67 @@ const renderizarAlumnos = () => {
             ? "Va a final"
             : "Repite"
         }</p>
+        <button onclick="
+          document.getElementById('alumno-${alumno.id}').remove();
+          alumnos = alumnos.filter(a => a.id !== ${alumno.id});
+          guardarEnLocalStorage();
+        ">
+          Borrar Alumno
+        </button>
       </div>`;
   });
 };
+
+const btnRenderizarAlumnos = document.getElementById("BtnRenderizarAlumnos");
+btnRenderizarAlumnos.onclick = () => {
+  renderizarAlumnos();
+};
+
+// Contenedor para alumnos de otros profesores
+const contenedorAlumnosProfesores = document.getElementById(
+  "alumnosContainerProfesores"
+);
+
+let alumnosProfesores = [];
+
+// fetch para traer alumnos de otros profesores
+const GetAlumnosProfesores = async () => {
+  const response = await fetch("alumnos.json");
+  const res = await response.json();
+  alumnosProfesores = res;
+};
+
+GetAlumnosProfesores();
+
+// renderizar alumnos de otros profesores
+
+const renderizarAlumnosProfesores = () => {
+  alumnosProfesores.forEach((alumnos) => {
+    contenedorAlumnosProfesores.innerHTML += `
+      <div class="alumno">
+        <h3>Alumno: ${alumnos.nombre} ${alumnos.apellido}</h3> 
+        <p> Nota 1: ${alumnos.nota1} </p> 
+        <p> Nota 2: ${alumnos.nota2} </p>
+        <p> Promedio: ${promediarNotas(alumnos.nota1, alumnos.nota2)}</p>
+        <p> Situación: ${
+          promediarNotas(alumnos.nota1, alumnos.nota2) >= 7
+            ? "Promociona"
+            : promediarNotas(alumnos.nota1, alumnos.nota2) >= 4
+            ? "Va a final"
+            : "Repite"
+        }</p>
+      </div>`;
+  });
+};
+
+addEventListener("DOMContentLoaded", async () => {
+  await GetAlumnosProfesores();
+  renderizarAlumnosProfesores();
+});
+
+/*Swal.fire({
+  title: "Error!",
+  text: "Do you want to continue",
+  icon: "error",
+  confirmButtonText: "Cool",
+}); */
